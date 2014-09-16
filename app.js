@@ -11,7 +11,11 @@
         $scope.items = [];
 
         $scope.disconnect = function() {
-            $scope.apply(function() { $scope.state = 0; });
+            $scope.$apply(function() {
+                $scope.state = 0;
+                $scope.fields = [];
+                $scope.items = [];
+            });
             websocket = null;
         };
 
@@ -21,7 +25,7 @@
             websocket = new WebSocket(url);
 
             websocket.onopen = function() {
-                $scope.alppy(function() { $scope.state = 2; });
+                $scope.$apply(function() { $scope.state = 2; });
             };
 
             websocket.onclose = function() {
@@ -34,7 +38,7 @@
 
             websocket.onmessage = function(evt) {
                 var message = JSON.parse(evt.data);
-                $scope.apply(function() {
+                $scope.$apply(function() {
                     $scope.state = 2;
                     if(message.type == "unit")
                     {

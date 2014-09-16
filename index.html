@@ -24,8 +24,22 @@
       <span class="label label-default" ng-show="state == 0">Disconnected</span>
       <span class="label label-info" ng-show="state == 1">Connecting</span>
       <span class="label label-success" ng-show="state == 2">Connected</span>
-      <div> {{fields}} </div>
-      <div> {{items}} </div>
+      <table class="table table-bordered table-hover" ng-show="fields.length && state == 2">
+        <thead>
+          <tr>
+            <th ng-repeat="field in fields">
+              {{field}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in items track by item[0]">
+            <td ng-repeat="field in item track by $index">
+              {{field}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </body>
 </html>
