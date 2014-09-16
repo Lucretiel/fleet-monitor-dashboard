@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body ng-controller="FleetMonitorController">
+    <div class="container">
+      <h2>Fleet Monitoring Service</h2>
+      <div class="col-md-12">
+        <form novalidate>
+          <div class="row">
+            <div class="input-group">
+              <input type="text" ng-model="websocket_url" class="form-control" placeholder="Host">
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="connect_to(websocket_url)">Connect</button>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <span class="label label-default" ng-show="state == 0">Disconnected</span>
+      <span class="label label-info" ng-show="state == 1">Connecting</span>
+      <span class="label label-success" ng-show="state == 2">Connected</span>
+      <div> {{fields}} </div>
+      <div> {{items}} </div>
+    </div>
+  </body>
+</html>
