@@ -9,31 +9,36 @@
   <body ng-controller="FleetMonitorController">
     <div class="container">
       <h2>Fleet Monitoring Service</h2>
-      <div class="col-md-12">
-        <form novalidate>
-          <div class="row">
-            <div class="input-group">
-              <input type="text" ng-model="websocket_url" class="form-control" placeholder="Host">
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="connect_to(websocket_url)">Connect</button>
-              </span>
+      <div class="row">
+        <div class="col-md-12">
+          <form novalidate>
+            <div class="row">
+              <div class="input-group">
+                <input type="text" ng-model="websocket_url" class="form-control" placeholder="Host">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="connect_to(websocket_url)">Connect</button>
+                </span>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-      <span class="label label-default" ng-show="state == 0">Disconnected</span>
-      <span class="label label-info" ng-show="state == 1">Connecting</span>
-      <span class="label label-success" ng-show="state == 2">Connected</span>
-      <table class="table table-bordered table-hover" ng-show="fields.length && state == 2">
+      <div class="row">
+        <span class="label label-default" ng-show="is_disconnected()">Disconnected</span>
+        <span class="label label-info" ng-show="is_connecting()">Connecting</span>
+        <span class="label label-success" ng-show="is_connected()">Connected</span>
+      </div>
+      <hr>
+      <table class="table table-bordered table-hover" ng-show="has_data()">
         <thead>
           <tr>
-            <th ng-repeat="field in fields">
+            <th ng-repeat="field in fields()">
               {{field}}
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="item in items track by item[0]">
+          <tr ng-repeat="item in items() track by item[0]">
             <td ng-repeat="field in item track by $index">
               {{field}}
             </td>
